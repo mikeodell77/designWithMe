@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
+
+  before_filter :authorize, :only => [:index, :show]
+
   def new
     @user = User.new
   end
 
   def create
     puts "User params : ", params[:user]
-    
+
     @user = User.new(params[:user])
     if @user.save
       session[:user_id] = @user.id
