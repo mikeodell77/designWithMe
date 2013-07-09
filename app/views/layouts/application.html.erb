@@ -1,25 +1,71 @@
 <!DOCTYPE html>
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Designwithme" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Designwithme" %>">
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+  	<meta charset="utf-8" />
+
+  	<!-- Uncomment to make IE8 render like IE7 -->
+  	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+  	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+  	<%= stylesheet_link_tag    "application" %>
+  	<%= javascript_include_tag "vendor/custom.modernizr" %>
     <%= csrf_meta_tags %>
-    <%= yield(:head) %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <div id="container" class="container">
-      <header>
-        <%= render 'layouts/navigation' %>
-        <%= render 'layouts/messages' %>
-      </header>
-      <div id="main" role="main">
-        <%= yield %>
+
+  <body>
+
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1><a href="#">Design With Me</a></h1>
+      </li>
+      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+      <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Left Nav Section -->
+      <ul class="left">
+        <li class="divider"></li>
+        <li class="active"><%= link_to "Companies", companies_path %></li>
+        <li><a href="#"><%= link_to "Designers", users_path %></a></li>
+        <li class="divider"></li>
+      </ul>
+
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <% if @current_user.nil? %>
+            <li><%= link_to "Log In", login_path %></li>
+        <% else %>
+            <li>Welcome back <%= link_to "Log Out", logout_path %></li>
+        <% end %>
+      </ul>
+    </section>
+  </nav>
+    <div class="row">
+      <div class="large-8 columns"><%= yield %></div>
+      <div class="large-4 columns">
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id ultricies nisl, ac porta erat. Maecenas eu tristique nulla, at feugiat ipsum. Vivamus dignissim semper tempor. Integer tincidunt est vel metus varius vulputate. Aenean bibendum sollicitudin purus nec semper. Quisque vitae laoreet arcu. Phasellus quis neque sed ante egestas interdum. Fusce lacinia sit amet quam eu lobortis. Curabitur posuere quam euismod tortor aliquam, quis commodo velit dictum.
+        </p>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer venenatis ullamcorper elit quis sodales. In lorem odio, placerat sed lectus at, vehicula auctor velit. Aenean erat nunc, rhoncus eu leo vel, auctor fringilla urna. Ut rutrum vitae mi non vestibulum. Sed imperdiet malesuada tortor. Phasellus vel nisi sed arcu scelerisque posuere in vitae est. Vivamus ut nisl tortor. Nulla posuere velit sit amet ullamcorper hendrerit. Vestibulum a magna non lorem convallis tristique.
+        </p>
       </div>
-      <footer>
-      </footer>
-    </div> <!--! end of #container -->
+
+    </div>
+
+
+    
+    <%= javascript_include_tag "application" %>
   </body>
 </html>

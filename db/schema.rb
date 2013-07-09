@@ -11,6 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20130610204610) do
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.text     "contact"
+    t.text     "address"
+    t.text     "phone"
+    t.text     "website"
+    t.text     "industry"
+    t.text     "subindustry"
+    t.integer  "minimum_order"
+    t.text     "comments"
+    t.integer  "ranking"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "cell_phone"
+    t.string   "home_phone"
+    t.text     "industry"
+    t.boolean  "member"
+    t.boolean  "admin"
+    t.text     "website"
+  end
 
 end
