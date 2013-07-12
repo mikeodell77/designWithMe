@@ -1,11 +1,12 @@
 class CompaniesController < ApplicationController
-
+  helper_method :sort_column, :sort_direction
   before_filter :authorize
 
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
+
+    @companies = Company.order(sort_column + " " + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -90,5 +91,14 @@ class CompaniesController < ApplicationController
       format.html { redirect_to companies_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def sort_column
+    params[:sort] || "name"
+  end
+
+  def sort_direction
+    params[:direction] || "asc"
   end
 end

@@ -8,5 +8,5 @@ DesignWithMe::Application.routes.draw do
   resources :companies do
     collection { post :import }
   end
-  root :to => "home#index"
+  root :to => "sessions#new"
 end

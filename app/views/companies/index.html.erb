@@ -1,6 +1,6 @@
 <h1>Listing companies</h1>
 
-<%= link_to 'New Company', new_company_path %>
+<%= link_to 'New Company', new_company_path, class: 'button' %>
 <br/>
 <br/>
 <p>
@@ -9,24 +9,31 @@
 </p>
 <div class="row">
   <div class="large-8 columns">
-    <table width="100%">
-      <tr>
-        <th>Name</th>
-        <th>Comments</th>
-        <th>Actions</th>
-      </tr>
-
+    <table id="companies">
+      <thead>
+          <tr>
+            <th><%= sortable "Name" %></th>
+            <th><%= sortable "Contact" %></th>
+            <th><%= sortable "Website" %></th>
+            <th><%= sortable "Industry" %></th>
+            <th><%= sortable "minimum_order", "Minimum Order" %></th>
+            <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
     <% @companies.each do |company| %>
       <tr>
-        <td><%= company.name %></td>
-        <td><%= company.comments %></td>
+        <td><%=link_to company.name, edit_company_path(company) %></td>
+        <td><%= company.contact %></td>
+        <td><%= company.website %></td>
+        <td><%= company.industry %></td>
+        <td><%= company.minimum_order %></td>
         <td>
-          <%= link_to 'Show', company %>
-          <%= link_to 'Edit', edit_company_path(company) %>
-          <%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'Delete', company, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>
+    </tbody>
     </table>
   </div>
 </div>
@@ -34,6 +41,9 @@
 <br />
 
 <h2>Import Companies</h2>
+<p>
+  Alternatively, you can import companies by selecting a file and uploading it.
+</p>
 <%= form_tag import_companies_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Import" %>

@@ -62,6 +62,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Company', class: 'button' %>
+    <%= link_to 'Cancel', companies_path, class: 'button' %>
   </div>
 <% end %>
